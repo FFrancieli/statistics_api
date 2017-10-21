@@ -12,7 +12,7 @@ public class TransactionTest {
 
     @Test
     public void returnsTrueWhenTimestampIsOlderThan60Seconds() throws Exception {
-        Timestamp timestamp = new Timestamp(Instant.now().plusSeconds(90l).toEpochMilli());
+        Timestamp timestamp = new Timestamp(Instant.now().minusSeconds(90l).toEpochMilli());
 
         Transaction transaction = new Transaction(12.8, timestamp);
 
@@ -21,7 +21,7 @@ public class TransactionTest {
 
     @Test
     public void returnsFalseWhenTimestampIsNotOlderThan60Seconds() throws Exception {
-        Timestamp timestamp = new Timestamp(Instant.now().toEpochMilli());
+        Timestamp timestamp = new Timestamp(Instant.now().minusSeconds(10l).toEpochMilli());
 
         Transaction transaction = new Transaction(12.8, timestamp);
 
