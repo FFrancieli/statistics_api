@@ -15,7 +15,7 @@ public class TransactionServiceTest {
 
     @Test
     public void returnsHttpStatus204IfTransactionIsOlderThan60Seconds() throws Exception {
-        Timestamp timestamp = new Timestamp(Instant.now().plusSeconds(90l).toEpochMilli());
+        Timestamp timestamp = new Timestamp(Instant.now().minusSeconds(90l).toEpochMilli());
         Transaction transaction = new Transaction(10.0, timestamp);
 
         TransactionService service = new TransactionService();
@@ -23,5 +23,17 @@ public class TransactionServiceTest {
         ResponseEntity response = service.cacheTransaction(transaction);
 
         assertThat(response.getStatusCode(), is(HttpStatus.NO_CONTENT));
+    }
+
+    @Test
+    public void returnsHttpStatus201IfTransactionIsNotOlderThan60Seconds() throws Exception {
+        Timestamp timestamp = new Timestamp(Instant.now().minusSeconds(10l).toEpochMilli());
+        Transaction transaction = new Transaction(10.0, timestamp);
+
+        TransactionService service = new TransactionService();
+
+        ResponseEntity response = service.cacheTransaction(transaction);
+
+        assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
     }
 }

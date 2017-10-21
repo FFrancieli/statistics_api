@@ -12,6 +12,6 @@ public class TransactionService {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
 
-        return null;
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }
