@@ -23,6 +23,6 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity processTransaction(@RequestBody Transaction transaction) {
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return service.cacheTransaction(transaction);
     }
 }
