@@ -14,10 +14,6 @@ public class Transaction {
         this.timestamp = timestamp;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
     public boolean isOlderThan60Seconds() {
         Timestamp nowMinus60Seconds = new Timestamp(Instant.now().minusSeconds(60).toEpochMilli());
 
