@@ -7,7 +7,9 @@ import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -44,5 +46,16 @@ public class StatisticServiceTest {
         ResponseEntity<TransactionStatistics> response = service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
 
         assertThat(response.getStatusCode(), is(HttpStatus.NOT_FOUND));
+    }
+
+    @Test
+    public void returnsHttpStatusOKIfThereAreTransactionsEarlierThanSixtySeconds() throws Exception {
+        when(transactionService.retrieveTransactionEarlierThanSixtySeconds()).thenReturn(Arrays.asList(98.7, 8.8));
+
+        StatisticService service = new StatisticService(transactionService);
+
+        ResponseEntity<TransactionStatistics> response = service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
+
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
     }
 }

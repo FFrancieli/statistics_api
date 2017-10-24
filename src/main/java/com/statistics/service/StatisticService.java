@@ -23,6 +23,6 @@ public class StatisticService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return null;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
