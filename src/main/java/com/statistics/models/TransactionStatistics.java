@@ -7,11 +7,11 @@ public class TransactionStatistics {
     private double average;
     private double maximum;
     private double minimum;
-    private double count;
+    private long count;
 
     public TransactionStatistics(@JsonProperty("sum") double sum, @JsonProperty("avg") double average,
                                  @JsonProperty("max") double maximum, @JsonProperty("min") double minimum,
-                                 @JsonProperty("count") double count) {
+                                 @JsonProperty("count") long count) {
         this.sum = sum;
         this.average = average;
         this.maximum = maximum;

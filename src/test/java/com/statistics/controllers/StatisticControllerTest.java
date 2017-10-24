@@ -58,7 +58,7 @@ public class StatisticControllerTest {
 
     @Test
     public void returnsStatisticsCalculationAsResponseBody() throws Exception {
-        TransactionStatistics statistics = new TransactionStatistics(1000.0, 56.9, 89.0, 1.0, 8.0);
+        TransactionStatistics statistics = new TransactionStatistics(1000.0, 56.9, 89.0, 1.0, 8L);
 
         when(service.calculateStatisticsForTransactionsEarlierThanSixtySeconds())
                 .thenReturn(new ResponseEntity(statistics, HttpStatus.OK));
