@@ -22,4 +22,8 @@ public class TransactionStatistics {
     public double getSum() {
         return sum;
     }
+
+    public double getAverage() {
+        return average;
+    }
 }

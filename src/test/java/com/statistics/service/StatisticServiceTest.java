@@ -66,4 +66,14 @@ public class StatisticServiceTest {
 
         assertThat(response.getBody().getSum(), is(196.3));
     }
+
+    @Test
+    public void calculatesAverageOfTransactionsThatOccuredInThePastSixtySeconds() throws Exception {
+        List<Double> transactionData = Arrays.asList(98.1, 95.2, 1.0, 2.0);
+        when(transactionService.retrieveTransactionEarlierThanSixtySeconds()).thenReturn(transactionData);
+
+        ResponseEntity<TransactionStatistics> response = service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
+
+        assertThat(response.getBody().getAverage(), is(49.075));
+    }
 }
