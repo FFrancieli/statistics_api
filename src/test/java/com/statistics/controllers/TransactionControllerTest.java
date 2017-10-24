@@ -30,14 +30,14 @@ public class TransactionControllerTest {
 
         controller.processTransaction(any(Transaction.class));
 
-        verify(service, times(1)).cacheTransaction(any(Transaction.class));
+        verify(service, times(1)).saveTransaction(any(Transaction.class));
     }
 
     @Test
     public void shouldReturnHttpStatus201WhenTransactionIsCached() throws Exception {
         ResponseEntity cachedTransactionResponse = new ResponseEntity(HttpStatus.CREATED);
 
-        doReturn(cachedTransactionResponse).when(service).cacheTransaction(any(Transaction.class));
+        doReturn(cachedTransactionResponse).when(service).saveTransaction(any(Transaction.class));
 
         TransactionController controller = new TransactionController(service);
         ResponseEntity response = controller.processTransaction(any(Transaction.class));
@@ -49,7 +49,7 @@ public class TransactionControllerTest {
     public void shouldReturnHttpStatus204WhenTransactionNotCached() throws Exception {
         ResponseEntity notCachedTransactionResponse = new ResponseEntity(HttpStatus.NO_CONTENT);
 
-        doReturn(notCachedTransactionResponse).when(service).cacheTransaction(any(Transaction.class));
+        doReturn(notCachedTransactionResponse).when(service).saveTransaction(any(Transaction.class));
 
         TransactionController controller = new TransactionController(service);
         ResponseEntity response = controller.processTransaction(any(Transaction.class));

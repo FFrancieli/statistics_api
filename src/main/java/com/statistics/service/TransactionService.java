@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TransactionService {
-    public ResponseEntity cacheTransaction(Transaction transaction) {
+    public ResponseEntity saveTransaction(Transaction transaction) {
         if (transaction.isOlderThan60Seconds()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }

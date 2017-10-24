@@ -22,6 +22,6 @@ public class TransactionController {
 
     @PostMapping
     public ResponseEntity processTransaction(@RequestBody Transaction transaction) {
-        return service.cacheTransaction(transaction);
+        return service.saveTransaction(transaction);
     }
 }

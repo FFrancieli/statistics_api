@@ -20,7 +20,7 @@ public class TransactionServiceTest {
 
         TransactionService service = new TransactionService();
 
-        ResponseEntity response = service.cacheTransaction(transaction);
+        ResponseEntity response = service.saveTransaction(transaction);
 
         assertThat(response.getStatusCode(), is(HttpStatus.NO_CONTENT));
     }
@@ -32,7 +32,7 @@ public class TransactionServiceTest {
 
         TransactionService service = new TransactionService();
 
-        ResponseEntity response = service.cacheTransaction(transaction);
+        ResponseEntity response = service.saveTransaction(transaction);
 
         assertThat(response.getStatusCode(), is(HttpStatus.CREATED));
     }
