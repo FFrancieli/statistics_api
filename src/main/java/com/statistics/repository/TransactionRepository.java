@@ -9,22 +9,23 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 @Repository
 public class TransactionRepository {
 
-    private ConcurrentHashMap<Timestamp, Double> transactions;
+    private ConcurrentMap<Timestamp, Double> transactions;
 
     public TransactionRepository() {
         transactions = new ConcurrentHashMap();
     }
 
-    public TransactionRepository(ConcurrentHashMap transactions) {
+    public TransactionRepository(ConcurrentMap transactions) {
         this.transactions = transactions;
     }
 
-    public ConcurrentHashMap<Timestamp, Double> save(Transaction transaction) {
+    public ConcurrentMap<Timestamp, Double> save(Transaction transaction) {
         transactions.putIfAbsent(transaction.getTimestamp(), transaction.getAmount());
         transactions.computeIfPresent(transaction.getTimestamp(), (k, v) -> v + transaction.getAmount());
 

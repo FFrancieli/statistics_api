@@ -24,7 +24,7 @@ public class TransactionRepositoryTest {
 
     @Test
     public void savesTransaction() throws Exception {
-        ConcurrentHashMap concurrentHashMap = mock(ConcurrentHashMap.class);
+        ConcurrentMap concurrentHashMap = mock(ConcurrentHashMap.class);
         TransactionRepository repository = new TransactionRepository(concurrentHashMap);
 
         Transaction transaction = new Transaction(92.7, new Timestamp(1478192204000l));
@@ -38,12 +38,12 @@ public class TransactionRepositoryTest {
     public void sumsAmountToExistentOnItTransactionTimestampAlreadyExists() throws Exception {
         Timestamp existentTimestamp = new Timestamp(1478192204000l);
 
-        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
+        ConcurrentMap concurrentHashMap = new ConcurrentHashMap();
         concurrentHashMap.put(existentTimestamp, 10.0);
 
         Transaction transaction = new Transaction(12.0, existentTimestamp);
         TransactionRepository repository = new TransactionRepository(concurrentHashMap);
-        ConcurrentHashMap savedTransactions = repository.save(transaction);
+        ConcurrentMap savedTransactions = repository.save(transaction);
 
         assertThat(savedTransactions.get(existentTimestamp), is(22.0));
     }
@@ -53,7 +53,7 @@ public class TransactionRepositoryTest {
         Timestamp oldTimestamp = new Timestamp(1478192204000l);
         Timestamp recentTimestamp =  new Timestamp(Instant.now().minusSeconds(10l).toEpochMilli());
 
-        ConcurrentHashMap<Timestamp, Double> transactions = new ConcurrentHashMap<>();
+        ConcurrentMap<Timestamp, Double> transactions = new ConcurrentHashMap<>();
         transactions.put(oldTimestamp, 89.0);
         transactions.put(recentTimestamp, 98.0);
 
@@ -68,7 +68,7 @@ public class TransactionRepositoryTest {
     public void returnEmptyListWhenThereIsNotTransctionEarlierThanSixtySeconds() throws Exception {
         Timestamp oldTimestamp = new Timestamp(1478192204000l);
 
-        ConcurrentHashMap<Timestamp, Double> transactions = new ConcurrentHashMap<>();
+        ConcurrentMap<Timestamp, Double> transactions = new ConcurrentHashMap<>();
         transactions.put(oldTimestamp, 89.0);
 
         TransactionRepository repository = new TransactionRepository(transactions);
