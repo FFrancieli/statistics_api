@@ -65,7 +65,7 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    public void returnEmptyListWhenThereIsNotTransctionEarlierThanSixtySeconds() throws Exception {
+    public void returnEmptyListWhenThereIsNotTransactionEarlierThanSixtySeconds() throws Exception {
         Timestamp oldTimestamp = new Timestamp(1478192204000l);
 
         ConcurrentMap<Timestamp, Double> transactions = new ConcurrentHashMap<>();
