@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransactionService {
     private final TransactionRepository repository;
@@ -25,7 +27,7 @@ public class TransactionService {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    public void retrieveTransactionEarlierThanSixtySeconds() {
-
+    public List<Double> retrieveTransactionEarlierThanSixtySeconds() {
+        return repository.getEarlierThanSixtySeconds();
     }
 }

@@ -13,6 +13,7 @@ import java.time.Instant;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -68,5 +69,12 @@ public class TransactionServiceTest {
         service.saveTransaction(transaction);
 
         verify(repository, never()).save(transaction);
+    }
+
+    @Test
+    public void retrievesTransactionsEarlierThanSixtySeconds() throws Exception {
+        service.retrieveTransactionEarlierThanSixtySeconds();
+
+        verify(repository, times(1)).getEarlierThanSixtySeconds();
     }
 }
