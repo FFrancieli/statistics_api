@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.hasItem;
@@ -31,7 +32,21 @@ public class TransactionRepositoryTest {
 
         repository.save(transaction);
 
+        verify(transactions).computeIfPresent(any(Timestamp.class), any(BiFunction.class));
         verify(transactions).putIfAbsent(any(Timestamp.class), anyDouble());
+    }
+
+    @Test
+    public void addsTransactionDataWhenTimestampDoesNotExist() throws Exception {
+        Timestamp timestamp = new Timestamp(1478192204000l);
+
+        ConcurrentMap transactions = new ConcurrentHashMap();
+
+        Transaction transaction = new Transaction(12.0, timestamp);
+        TransactionRepository repository = new TransactionRepository(transactions);
+        ConcurrentMap savedTransactions = repository.save(transaction);
+
+        assertThat(savedTransactions.get(timestamp), is(12.0));
     }
 
     @Test

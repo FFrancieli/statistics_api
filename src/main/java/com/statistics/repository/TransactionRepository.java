@@ -26,8 +26,8 @@ public class TransactionRepository {
     }
 
     public ConcurrentMap<Timestamp, Double> save(Transaction transaction) {
-        transactions.putIfAbsent(transaction.getTimestamp(), transaction.getAmount());
         transactions.computeIfPresent(transaction.getTimestamp(), (k, v) -> v + transaction.getAmount());
+        transactions.putIfAbsent(transaction.getTimestamp(), transaction.getAmount());
 
         return transactions;
     }
