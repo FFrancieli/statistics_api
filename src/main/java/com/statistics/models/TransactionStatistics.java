@@ -26,4 +26,8 @@ public class TransactionStatistics {
     public double getAverage() {
         return average;
     }
+
+    public double getMaximum() {
+        return maximum;
+    }
 }

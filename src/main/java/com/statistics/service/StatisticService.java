@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class StatisticService {
         double sum = sumTransactionAmount(transactionData);
         double average = sum/transactionData.size();
 
-        TransactionStatistics statistics = new TransactionStatistics(sum, average, 0, 0, 0);
+        TransactionStatistics statistics = new TransactionStatistics(sum, average, Collections.max(transactionData), 0, 0);
 
         return new ResponseEntity<>(statistics, HttpStatus.OK);
     }

@@ -76,4 +76,14 @@ public class StatisticServiceTest {
 
         assertThat(response.getBody().getAverage(), is(49.075));
     }
+
+    @Test
+    public void calculatesTheMaximumTransactionThatOccurredInThePastSixtySeconds() throws Exception {
+        List<Double> transactionData = Arrays.asList(98.1, 95.2, 1.0, 2.0);
+        when(transactionService.retrieveTransactionEarlierThanSixtySeconds()).thenReturn(transactionData);
+
+        ResponseEntity<TransactionStatistics> response = service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
+
+        assertThat(response.getBody().getMaximum(), is(98.1));
+    }
 }
