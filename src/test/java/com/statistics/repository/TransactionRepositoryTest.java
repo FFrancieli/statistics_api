@@ -49,7 +49,7 @@ public class TransactionRepositoryTest {
     }
 
     @Test
-    public void name() throws Exception {
+    public void returnsListOfTransactionsThatHappenedInThePastSixtySeconds() throws Exception {
         Timestamp oldTimestamp = new Timestamp(1478192204000l);
         Timestamp recentTimestamp =  new Timestamp(Instant.now().minusSeconds(10l).toEpochMilli());
 
