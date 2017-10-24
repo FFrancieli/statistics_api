@@ -24,25 +24,25 @@ public class TransactionRepositoryTest {
 
     @Test
     public void savesTransaction() throws Exception {
-        ConcurrentMap concurrentHashMap = mock(ConcurrentHashMap.class);
-        TransactionRepository repository = new TransactionRepository(concurrentHashMap);
+        ConcurrentMap transactions = mock(ConcurrentHashMap.class);
+        TransactionRepository repository = new TransactionRepository(transactions);
 
         Transaction transaction = new Transaction(92.7, new Timestamp(1478192204000l));
 
         repository.save(transaction);
 
-        verify(concurrentHashMap).putIfAbsent(any(Timestamp.class), anyDouble());
+        verify(transactions).putIfAbsent(any(Timestamp.class), anyDouble());
     }
 
     @Test
     public void sumsAmountToExistentOnItTransactionTimestampAlreadyExists() throws Exception {
         Timestamp existentTimestamp = new Timestamp(1478192204000l);
 
-        ConcurrentMap concurrentHashMap = new ConcurrentHashMap();
-        concurrentHashMap.put(existentTimestamp, 10.0);
+        ConcurrentMap transactions = new ConcurrentHashMap();
+        transactions.put(existentTimestamp, 10.0);
 
         Transaction transaction = new Transaction(12.0, existentTimestamp);
-        TransactionRepository repository = new TransactionRepository(concurrentHashMap);
+        TransactionRepository repository = new TransactionRepository(transactions);
         ConcurrentMap savedTransactions = repository.save(transaction);
 
         assertThat(savedTransactions.get(existentTimestamp), is(22.0));
