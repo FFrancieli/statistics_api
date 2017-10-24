@@ -34,4 +34,8 @@ public class TransactionStatistics {
     public double getMinimum() {
         return minimum;
     }
+
+    public long getCount() {
+        return count;
+    }
 }

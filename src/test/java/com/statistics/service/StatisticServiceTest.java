@@ -96,4 +96,14 @@ public class StatisticServiceTest {
 
         assertThat(response.getBody().getMinimum(), is(1.0));
     }
+
+    @Test
+    public void calculatesTheAmountOfTransactionThatOccurredInThePastSixtySeconds() throws Exception {
+        List<Double> transactionData = Arrays.asList(98.1, 95.2, 1.0, 2.0);
+        when(transactionService.retrieveTransactionEarlierThanSixtySeconds()).thenReturn(transactionData);
+
+        ResponseEntity<TransactionStatistics> response = service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
+
+        assertThat(response.getBody().getCount(), is(4L));
+    }
 }
