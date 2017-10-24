@@ -23,15 +23,17 @@ public class StatisticServiceTest {
     @Mock
     TransactionService transactionService;
 
+    StatisticService service;
+
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+
+        service = new StatisticService(transactionService);
     }
 
     @Test
     public void getsStatisticsEarlierThanSixtySeconds() throws Exception {
-        StatisticService service = new StatisticService(transactionService);
-
         service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
 
         verify(transactionService, times(1)).retrieveTransactionEarlierThanSixtySeconds();
@@ -40,8 +42,6 @@ public class StatisticServiceTest {
     @Test
     public void returnsHttpStatusNotFoundIfThereIsNoTransactionEarlierThanSixtySeconds() throws Exception {
         when(transactionService.retrieveTransactionEarlierThanSixtySeconds()).thenReturn(Collections.emptyList());
-
-        StatisticService service = new StatisticService(transactionService);
 
         ResponseEntity<TransactionStatistics> response = service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
 
@@ -52,10 +52,18 @@ public class StatisticServiceTest {
     public void returnsHttpStatusOKIfThereAreTransactionsEarlierThanSixtySeconds() throws Exception {
         when(transactionService.retrieveTransactionEarlierThanSixtySeconds()).thenReturn(Arrays.asList(98.7, 8.8));
 
-        StatisticService service = new StatisticService(transactionService);
-
         ResponseEntity<TransactionStatistics> response = service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    }
+
+    @Test
+    public void calculatesTheSumOfTransactionsOccurredInThePastSixtySeconds() throws Exception {
+        List<Double> transactionData = Arrays.asList(98.1, 95.2, 1.0, 2.0);
+        when(transactionService.retrieveTransactionEarlierThanSixtySeconds()).thenReturn(transactionData);
+
+        ResponseEntity<TransactionStatistics> response = service.calculateStatisticsForTransactionsEarlierThanSixtySeconds();
+
+        assertThat(response.getBody().getSum(), is(196.3));
     }
 }

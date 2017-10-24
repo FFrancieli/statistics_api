@@ -18,4 +18,8 @@ public class TransactionStatistics {
         this.minimum = minimum;
         this.count = count;
     }
+
+    public double getSum() {
+        return sum;
+    }
 }

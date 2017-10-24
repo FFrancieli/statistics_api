@@ -23,6 +23,14 @@ public class StatisticService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        double sum = sumTransactionAmount(transactionData);
+
+        TransactionStatistics statistics = new TransactionStatistics(sum, 0, 0, 0, 0);
+
+        return new ResponseEntity<>(statistics, HttpStatus.OK);
+    }
+
+    private double sumTransactionAmount(List<Double> transactionData) {
+        return transactionData.parallelStream().reduce(0.0, Double::sum);
     }
 }
