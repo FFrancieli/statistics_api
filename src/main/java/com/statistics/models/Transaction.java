@@ -19,4 +19,12 @@ public class Transaction {
 
         return (timestamp.before(nowMinus60Seconds));
     }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
 }
