@@ -27,7 +27,8 @@ public class StatisticService {
         double sum = sumTransactionAmount(transactionData);
         double average = sum/transactionData.size();
 
-        TransactionStatistics statistics = new TransactionStatistics(sum, average, Collections.max(transactionData), 0, 0);
+        TransactionStatistics statistics = new TransactionStatistics(sum, average, Collections.max(transactionData),
+                Collections.min(transactionData), 0);
 
         return new ResponseEntity<>(statistics, HttpStatus.OK);
     }

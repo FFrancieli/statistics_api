@@ -30,4 +30,8 @@ public class TransactionStatistics {
     public double getMaximum() {
         return maximum;
     }
+
+    public double getMinimum() {
+        return minimum;
+    }
 }
