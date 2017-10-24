@@ -60,4 +60,13 @@ public class TransactionServiceTest {
 
         verify(repository, times(1)).save(transaction);
     }
+
+    @Test
+    public void shouldNotSaveTransactionWhenItIsOlderThanSixtySeconds() throws Exception {
+        Transaction transaction = new Transaction(10.0, TIMESTAMP_OLDER_THAN_SIXTY_SECONDS);
+
+        service.saveTransaction(transaction);
+
+        verify(repository, never()).save(transaction);
+    }
 }
