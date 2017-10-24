@@ -24,4 +24,8 @@ public class TransactionService {
         repository.save(transaction);
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    public void retrieveTransactionEarlierThanSixtySeconds() {
+
+    }
 }
